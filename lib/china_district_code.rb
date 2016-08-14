@@ -10,7 +10,7 @@ module ChinaDistrictCode
 
   load_file 'models'
   load_file 'helpers'
- 
+
   include CsvHelper
   include DistrictHelper
 
@@ -19,25 +19,32 @@ module ChinaDistrictCode
     DistrictHelper::get_china_district_code
   end
 
-  #通过省份查城市 
+  #find citys by province  
   def self.find_citys_by_province(name)
     result = DistrictHelper::find_citys_by_province(name)
-    puts result
+    puts result.to_s
     result
   end
 
+  #find areas by city
+  def self.find_areas_by_city(name)
+    result = DistrictHelper::find_areas_by_city(name)
+    puts result.to_s
+    result
+  end
 
-  #通过城市查区县
+  #find province by city
+  def self.find_province_by_city(name)
+    result = DistrictHelper::find_province_by_city(name)
+    puts result.to_s
+    result
+  end
 
-  #通过城市查省份
-
-  #通过区县查城市-省份
-
-  #通过区域代码查区域
-
-
-
+  #find province,city by area
+  def self.find_province_city_by_area(name)
+    result = DistrictHelper::find_province_city_by_area(name)
+    puts result.to_s
+    result
+  end
 end
-
-# ChinaDistrictCode.reload_china_district_code
 

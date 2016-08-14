@@ -54,6 +54,7 @@ module DistrictHelper
     areas.each do |e|
       tmp = e.split(/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /)
       name = tmp[1]
+      next if name.eql?('市辖区')
       code = tmp[0]
       pro_prefix = code[0,2]
       city_prefix = code[2,2]
@@ -74,7 +75,7 @@ module DistrictHelper
     province = []
     citys = []
     @provinces.each do |pro|
-      if pro[2].eql? name
+      if pro[2].include? name
         province = pro
         break
       end
@@ -85,13 +86,78 @@ module DistrictHelper
       @citys.each do |ci|
         LOGGER.debug ci[0]
         if ci[0].eql?(province[0])
-          LOGGER.debug ci
-          citys.push ci[3]
+          # LOGGER.debug ci
+          citys.push [ci[2],ci[3]]
         end
       end
     end
     citys
   end
 
+  #find the area all the city bwlow
+  def self.find_areas_by_city(name)
+    load_all_csv_data
+    city = []
+    areas = []
+    @citys.each do |ci|
+      if ci[3].include?(name)
+        city = ci
+        break
+      end
+    end
+    @areas.each do |ar|
+      if ar[0].eql?(city[0]) and ar[1].eql?(city[1])
+        areas.push [ar[3],ar[4]]
+      end
+    end
+    areas
+  end
+
+  #find province by city
+  def self.find_province_by_city(name)
+    load_all_csv_data
+    city = []
+    province = []
+    @citys.each do |ci|
+      if ci[3].include?(name)
+        city = ci
+        break
+      end
+    end
+    @provinces.each do |pro|
+      if pro[0].eql?(city[0])
+        province = [pro[1],pro[2]]
+        break
+      end
+    end
+    province
+  end
+
+  #find province,city by area
+  def self.find_province_city_by_area(name)
+    load_all_csv_data
+    area = []
+    city = []
+    province = []
+    @areas.each do |ar|
+      if ar[4].include?(name)
+        area = ar
+        break
+      end
+    end
+    @provinces.each do |pro|
+      if pro[0].eql?(area[0])
+        province = [pro[1],pro[2]]
+        break
+      end
+    end
+    @citys.each do |ci|
+      if ci[0].eql?(area[0]) and ci[1].eql?(area[1])
+        city = [ci[2],ci[3]]
+        break
+      end
+    end
+    [province,city]
+  end
 
 end
