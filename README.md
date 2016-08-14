@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ChinaDistrictCode
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/china_district_code`. To experiment with that code, run `bin/console` for an interactive prompt.
@@ -34,3 +35,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/china_district_code.
 
+=======
+# china_district_code
+China District Code Query plugin
+>>>>>>> 1e97e525d1bf58fdc3e27f5f88d8aabd54a77e2c
